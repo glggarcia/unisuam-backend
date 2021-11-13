@@ -21,15 +21,15 @@ class StatusTest extends TestCase
         $status = new Status();
 
         static::assertEquals(
-            self::INICIADA, $status::findOrFail(1)->description
+            self::INICIADA, $status::findOrFail(Status::INICIADA)->description
         );
 
         static::assertEquals(
-            self::EM_PROCESSO, $status::findOrFail(2)->description
+            self::EM_PROCESSO, $status::findOrFail(Status::EM_PROCESSO)->description
         );
 
         static::assertEquals(
-            self::FINALIZADA, $status::findOrFail(3)->description
+            self::FINALIZADA, $status::findOrFail(Status::FINALIZADA)->description
         );
     }
 }

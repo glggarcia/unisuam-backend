@@ -13,8 +13,8 @@ class IndicacoesMigration extends Migration
      */
     public function up()
     {
-        Schema::create('indicacoes', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+        Schema::create('indications', function (Blueprint $table) {
+            $table->id();
             $table->string('nome');
             $table->string('cpf')->unique();
             $table->string('telefone');
@@ -22,8 +22,7 @@ class IndicacoesMigration extends Migration
 
             $table->foreignId('status_id')->references('id')
                 ->on('status')
-                ->onUpdate('cascade')
-                ->onDelete('no action');
+                ->onUpdate('cascade');
 
             $table->timestamps();
         });
@@ -36,6 +35,6 @@ class IndicacoesMigration extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('indications');
     }
 }

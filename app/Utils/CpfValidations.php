@@ -2,7 +2,7 @@
 
 namespace App\Utils;
 
-trait Validations {
+trait CpfValidations {
 
     function getCpfValidation(string $cpf): bool
     {
@@ -24,14 +24,4 @@ trait Validations {
         }
         return true;
     }
-
-    function getEmailValidation(string $email): bool
-    {
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
-            return false;
-        }
-
-        return true;
-    }
-
 }
