@@ -76,7 +76,7 @@ class IndicationServiceTest extends TestCase
         static::assertNull(self::$indicationService->createIndication($data));
     }
 
-    public function testDeleteIdInvalid()
+    public function testDeleteInvalidId()
     {
         self::$indicationService->delete(10);
         static::assertEquals("Id inválido", self::$indicationService->getErrors()[0]);
@@ -103,6 +103,40 @@ class IndicationServiceTest extends TestCase
 
         static::assertEquals("Indicação em processo, não foi possível deletar",
             self::$indicationService->getErrors()[0]);
+    }
+
+    public function testUpdateStatusInvalidId()
+    {
+        self::$indicationService->updateIndicationStatus(10);
+        static::assertEquals("Id inválido", self::$indicationService->getErrors()[0]);
+    }
+
+    public function testUpdateStatusInvalid()
+    {
+        $data =  [
+            'nome' => "Test",
+            "email" => "test@test.com",
+            "telefone" => "",
+            "cpf" => "66526604072",
+            "status_id" => Status::FINALIZADA
+        ];
+
+        $result = self::$indicationService->createIndication($data);
+        self::$indicationService->updateIndicationStatus($result->id);
+
+        static::assertEquals("Indicação já finalizada",
+            self::$indicationService->getErrors()[0]);
+    }
+
+    public function testUpdateStatusValid()
+    {
+        $result = self::$indicationService->createIndication($this->setValidData());
+        $indication = self::$indicationService->updateIndicationStatus($result->id);
+        $newStatus = self::$indicationService->updateIndicationStatus($result->id);
+
+        static::assertNotEquals($result->status_id, $indication->status_id);
+        static::assertEquals(Status::EM_PROCESSO, $indication->status_id);
+        static::assertEquals(Status::FINALIZADA, $newStatus->status_id);
     }
 
     /**

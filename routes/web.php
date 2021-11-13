@@ -21,4 +21,5 @@ $router->get('/', function () use ($router) {
 
 $router->get('/indications', "IndicationController@getAll", "as", "indications");
 $router->post('/indications', "IndicationController@create", "as", "create_indication");
-$router->delete('/indications/{id}', "IndicationController@delete", "as", "create_indication");
+$router->delete('/indications/{id}', "IndicationController@delete", "as", "delete_indication");
+$router->patch('/indications/{id}', "IndicationController@update", "as", "update_indication");

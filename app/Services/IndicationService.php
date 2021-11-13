@@ -92,6 +92,24 @@ class IndicationService extends BaseService implements IndicationServiceContract
         return $indication->delete($id);
     }
 
+    public function updateIndicationStatus(int $id)
+    {
+        $indication = Indication::find($id);
+
+        if(!$indication) {
+            $this->setErrors(["Id inválido"]);
+            return null;
+        }
+
+        if(!$this->updateStatus($indication)) {
+            $this->setErrors(["Indicação já finalizada"]);
+            return null;
+        }
+
+        $indication->save();
+        return $indication;
+    }
+
     /**
      * @param array $data
      * @return mixed
@@ -106,6 +124,24 @@ class IndicationService extends BaseService implements IndicationServiceContract
         }
 
         return null;
+    }
+
+    private function updateStatus(Indication $indication)
+    {
+        $status = true;
+
+        switch ($indication->status_id) {
+            case 1:
+                $indication->status_id = Status::EM_PROCESSO;
+                break;
+            case 2:
+                $indication->status_id = Status::FINALIZADA;
+                break;
+            default:
+                $status = false;
+        }
+
+        return $status;
     }
 
 }

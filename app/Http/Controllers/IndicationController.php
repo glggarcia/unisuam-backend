@@ -48,4 +48,15 @@ class IndicationController extends Controller
         }
         return $this->successResponse('Indicação deletada', '');
     }
+
+    public function update(int $id)
+    {
+        $result = $this->indicationService->updateIndicationStatus($id);
+
+        if(!$result) {
+            return $this->errorResponse('Não foi possível atualizar o status da indicação',
+                $this->indicationService->getErrors());
+        }
+        return $this->successResponse('Status da indicação atualizado', $result);
+    }
 }
