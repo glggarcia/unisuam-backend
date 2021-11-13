@@ -37,4 +37,15 @@ class IndicationController extends Controller
 
         return $this->successResponse('Indicação feita com sucesso', $result);
     }
+
+    public function delete(int $id)
+    {
+        $result = $this->indicationService->delete($id);
+
+        if(!$result) {
+            return $this->errorResponse('Não foi possível deletar a indicação.',
+                $this->indicationService->getErrors());
+        }
+        return $this->successResponse('Indicação deletada', '');
+    }
 }

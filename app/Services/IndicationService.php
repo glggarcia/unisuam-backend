@@ -9,6 +9,7 @@ use App\Utils\CpfValidations;
 use App\Utils\EmailValidation;
 use App\Utils\ValidationMessages;
 use App\Utils\ValidationRules;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Validator;
 
 use function PHPUnit\Framework\throwException;
@@ -70,8 +71,25 @@ class IndicationService extends BaseService implements IndicationServiceContract
             'cpf' => $data['cpf'],
             'email' => $data['email'],
             'telefone' => $data['telefone'],
-            'status_id' => Status::INICIADA
+            'status_id' => $data['status_id'] ?? Status::INICIADA
         ]);
+    }
+
+    public function delete(int $id)
+    {
+        $indication = Indication::find($id);
+
+        if(!$indication) {
+            $this->setErrors(["Id inválido"]);
+            return null;
+        }
+
+        if($indication->status_id == Status::EM_PROCESSO) {
+            $this->setErrors(["Indicação em processo, não foi possível deletar"]);
+            return null;
+        }
+
+        return $indication->delete($id);
     }
 
     /**

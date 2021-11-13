@@ -4,10 +4,12 @@ namespace Indication;
 
 use App\Contracts\IndicationServiceContract;
 use App\Models\Indication;
+use App\Models\Status;
 use App\Services\IndicationService;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use TestCase;
+use function PHPUnit\Framework\assertEquals;
 
 class IndicationServiceTest extends TestCase
 {
@@ -72,6 +74,35 @@ class IndicationServiceTest extends TestCase
             "cpf" => "38522663009"
         ];
         static::assertNull(self::$indicationService->createIndication($data));
+    }
+
+    public function testDeleteIdInvalid()
+    {
+        self::$indicationService->delete(10);
+        static::assertEquals("Id inválido", self::$indicationService->getErrors()[0]);
+    }
+
+    public function testDeleteValid()
+    {
+        $result = self::$indicationService->createIndication($this->setValidData());
+        static::assertTrue(self::$indicationService->delete($result->id));
+    }
+
+    public function testDeleteInProgress()
+    {
+        $data =  [
+            'nome' => "Test",
+            "email" => "test@test.com",
+            "telefone" => "",
+            "cpf" => "66526604072",
+            "status_id" => Status::EM_PROCESSO
+        ];
+
+        $result = self::$indicationService->createIndication($data);
+        self::$indicationService->delete($result->id);
+
+        static::assertEquals("Indicação em processo, não foi possível deletar",
+            self::$indicationService->getErrors()[0]);
     }
 
     /**
