@@ -29,7 +29,7 @@ class IndicationServiceTest extends TestCase
     {
         static::json('GET', '/indications')->seeJson([
             "mensagem" => "Lista de todas as Indicações",
-            "erros" => false
+            "erro" => false
         ]);
     }
 
@@ -137,31 +137,5 @@ class IndicationServiceTest extends TestCase
         static::assertNotEquals($result->status_id, $indication->status_id);
         static::assertEquals(Status::EM_PROCESSO, $indication->status_id);
         static::assertEquals(Status::FINALIZADA, $newStatus->status_id);
-    }
-
-    /**
-     * @return string[]
-     */
-    private function setValidData(): array
-    {
-        return [
-            'nome' => "Test",
-            "email" => "test@test.com",
-            "telefone" => "",
-            "cpf" => "97537727007"
-        ];
-    }
-
-    /**
-     * @return string[]
-     */
-    private function setInvalidData(): array
-    {
-        return [
-            'nome' => "Test",
-            "email" => "test@test",
-            "telefone" => "",
-            "cpf" => "3015114905"
-        ];
     }
 }

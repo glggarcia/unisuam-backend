@@ -29,4 +29,30 @@ abstract class TestCase extends BaseTestCase
         Artisan::call('migrate:reset');
         parent::tearDown();
     }
+
+    /**
+     * @return string[]
+     */
+    protected function setValidData(): array
+    {
+        return [
+            'nome' => "Test",
+            "email" => "test@test.com",
+            "telefone" => "",
+            "cpf" => "97537727007"
+        ];
+    }
+
+    /**
+     * @return string[]
+     */
+    protected function setInvalidData(): array
+    {
+        return [
+            'nome' => "Test",
+            "email" => "test@test",
+            "telefone" => "",
+            "cpf" => "3015114905"
+        ];
+    }
 }

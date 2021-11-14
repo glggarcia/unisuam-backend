@@ -28,7 +28,7 @@ class Controller extends BaseController
     {
         $response = [
             'mensagem' => $message,
-            'erros' => $this->errors,
+            'erro' => $this->errors,
             'data' => ''
         ];
 
@@ -51,7 +51,7 @@ class Controller extends BaseController
     {
         $response = [
             'mensagem' => $message,
-            'erros' => true,
+            'erro' => true,
             'descrição' => $data,
         ];
 

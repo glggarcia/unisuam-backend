@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\IndicationServiceContract;
 use App\Models\Indication;
 use App\Services\IndicationService;
 use Illuminate\Http\JsonResponse;
@@ -25,7 +26,11 @@ class IndicationController extends Controller
         return $this->successResponse('Lista de todas as Indicações', $result);
     }
 
-    public function create(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function create(Request $request): JsonResponse
     {
         $data = $request->all();
         $result = $this->indicationService->createIndication($data);
@@ -38,7 +43,11 @@ class IndicationController extends Controller
         return $this->successResponse('Indicação feita com sucesso', $result);
     }
 
-    public function delete(int $id)
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function delete(int $id): JsonResponse
     {
         $result = $this->indicationService->delete($id);
 
@@ -49,7 +58,11 @@ class IndicationController extends Controller
         return $this->successResponse('Indicação deletada', '');
     }
 
-    public function update(int $id)
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function update(int $id): JsonResponse
     {
         $result = $this->indicationService->updateIndicationStatus($id);
 

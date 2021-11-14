@@ -4,6 +4,10 @@ namespace App\Utils;
 
 trait CpfValidations {
 
+    /**
+     * @param string $cpf
+     * @return bool
+     */
     function getCpfValidation(string $cpf): bool
     {
         $cpf = preg_replace( '/[^0-9]/is', '', $cpf );

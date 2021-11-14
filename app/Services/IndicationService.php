@@ -75,6 +75,10 @@ class IndicationService extends BaseService implements IndicationServiceContract
         ]);
     }
 
+    /**
+     * @param int $id
+     * @return null
+     */
     public function delete(int $id)
     {
         $indication = Indication::find($id);
