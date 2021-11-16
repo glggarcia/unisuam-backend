@@ -15,10 +15,6 @@
 
 use App\Http\Controllers\IndicationController;
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
-
 $router->get('/indications', "IndicationController@getAll", "as", "indications");
 $router->post('/indications', "IndicationController@create", "as", "create_indication");
 $router->delete('/indications/{id}', "IndicationController@delete", "as", "delete_indication");
