@@ -15,7 +15,7 @@
 
 use App\Http\Controllers\IndicationController;
 
-$router->get('/indications', "IndicationController@getAll", "as", "indications");
-$router->post('/indications', "IndicationController@create", "as", "create_indication");
-$router->delete('/indications/{id}', "IndicationController@delete", "as", "delete_indication");
-$router->patch('/indications/{id}', "IndicationController@update", "as", "update_indication");
+$router->get('api/indications', "IndicationController@getAll", "as", "indications");
+$router->post('api/indications', "IndicationController@create", "as", "create_indication");
+$router->delete('api/indications/{id}', "IndicationController@delete", "as", "delete_indication");
+$router->patch('api/indications/{id}', "IndicationController@update", "as", "update_indication");

@@ -27,7 +27,7 @@ class IndicationServiceTest extends TestCase
 
     public function testGetAllIndicationsEmpty()
     {
-        static::json('GET', '/indications')->seeJson([
+        static::json('GET', 'api/indications')->seeJson([
             "mensagem" => "Lista de todas as Indicações",
             "erro" => false
         ]);
